@@ -1,5 +1,6 @@
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 const AboutUs = () => {
   return (
@@ -27,9 +28,11 @@ const AboutUs = () => {
               with you to develop tailored strategies that align with your
               objectives, ensuring you reach new heights of success.
             </p>
-            <button className="bg-red-500 text-white px-6 py-2 rounded-full hover:bg-red-600 transition duration-300">
-              Read More
-            </button>
+            <Link href="/about">
+              <button className="bg-red-500 text-white px-6 py-2 rounded-full hover:bg-red-600 transition duration-300">
+                Read More
+              </button>
+            </Link>
           </div>
         </div>
       </div>

@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 
 const CourseOfferings = () => {
   const courses = [
@@ -84,9 +85,11 @@ const CourseOfferings = () => {
         </div>
 
         <div className="mt-12 text-center">
-          <button className="bg-[#012E6B] text-white px-8 py-3 rounded-full text-lg font-semibold hover:bg-[#283a53] transition duration-300 transform hover:scale-105">
-            Enroll Now
-          </button>
+          <Link href="/enroll">
+            <button className="bg-[#012E6B] text-white px-8 py-3 rounded-full text-lg font-semibold hover:bg-[#283a53] transition duration-300 transform hover:scale-105">
+              Enroll Now
+            </button>
+          </Link>
         </div>
       </div>
     </div>
