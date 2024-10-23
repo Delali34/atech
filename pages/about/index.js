@@ -91,7 +91,7 @@ const AboutPage = () => {
                 <h3 className="text-xl font-semibold mb-3 text-blue-600">
                   Courses
                 </h3>
-                <ul className="list-disc list-inside text-gray-700 grid grid-cols-2 gap-2">
+                <ul className="list-disc list-inside text-sm text-gray-700 grid grid-cols-1 lg:grid-cols-2 gap-2">
                   <li>CCTV Installation</li>
                   <li>Access Control Systems</li>
                   <li>Video Intercom Systems</li>
@@ -136,7 +136,7 @@ const AboutPage = () => {
                   <h3 className="text-lg font-semibold mb-2 text-blue-600">
                     {cert.level}
                   </h3>
-                  <p className="text-gray-700">{cert.title}</p>
+                  <p className="text-gray-700 text-sm">{cert.title}</p>
                 </motion.div>
               ))}
             </div>

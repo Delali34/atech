@@ -7,6 +7,7 @@ export default function Document() {
       <body>
         <Main />
         <NextScript />
+        <script src="https://js.paystack.co/v1/inline.js"></script>
       </body>
     </Html>
   );
