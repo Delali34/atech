@@ -29,7 +29,7 @@ const AboutUs = () => {
               objectives, ensuring you reach new heights of success.
             </p>
             <Link href="/about">
-              <button className="bg-red-500 text-white px-6 py-2 rounded-full hover:bg-red-600 transition duration-300">
+              <button className="bg-red-500 text-white mt-6 px-6 py-2 rounded-lg hover:bg-red-600 transition duration-300">
                 Read More
               </button>
             </Link>
