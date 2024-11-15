@@ -1,8 +1,13 @@
-"use client";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
-import { PaystackButton } from "react-paystack";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import dynamic from "next/dynamic";
+
+// Dynamically import PaystackButton with ssr disabled
+const PaystackButton = dynamic(
+  () => import("react-paystack").then((mod) => mod.PaystackButton),
+  { ssr: false }
+);
 
 const EnrollmentForm = () => {
   const [formData, setFormData] = useState({
@@ -19,6 +24,11 @@ const EnrollmentForm = () => {
   const [errors, setErrors] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [showConfirmation, setShowConfirmation] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   // Course pricing (in GHS)
   const coursePricing = {
@@ -164,7 +174,7 @@ const EnrollmentForm = () => {
     }
   };
 
-  const config = {
+  const getPaystackConfig = () => ({
     reference: new Date().getTime().toString(),
     email: formData.email,
     amount: getCurrentPrice() * 100,
@@ -179,7 +189,7 @@ const EnrollmentForm = () => {
         },
       ],
     },
-  };
+  });
 
   const handlePaystackSuccessAction = (reference) => {
     console.log("Payment successful!", reference);
@@ -193,6 +203,10 @@ const EnrollmentForm = () => {
     setIsLoading(false);
     setShowConfirmation(false);
   };
+
+  if (!mounted) {
+    return null; // or a loading spinner
+  }
 
   return (
     <section>
@@ -232,7 +246,7 @@ const EnrollmentForm = () => {
                   Back
                 </button>
                 <PaystackButton
-                  {...config}
+                  {...getPaystackConfig()}
                   text="Proceed to Payment"
                   onSuccess={handlePaystackSuccessAction}
                   onClose={handlePaystackCloseAction}
