@@ -34,27 +34,22 @@ const CourseOfferings = () => {
       ],
     },
     {
-      title:
-        "INTERNATIONAL MEN-OF-HONOR JOURNAL ASSOCIATIONS OF SAFETY AND PROTECTION OFFICERS",
+      title: "ASSOCIATIONS OF SAFETY AND PROTECTION OFFICERS - GHANA CHAPTER",
       items: [
-        "PROFESSIONAL BASIC CERTIFICATE (PBC) - 2 WEEKS",
-        "- Security and Peace Management",
-        "- Security and Crimes Prevention Intelligence",
-        "PROFESSIONAL ADVANCE CERTIFICATE (PAC) - 3 WEEKS",
-        "- VIP Security and Defense Intelligence",
-        "DIPLOMA CERTIFICATE (DIP) - 8 WEEKS",
-        "- Human Security and Faculties Protections Intelligence",
-        "HIGHER DIPLOMA CERTIFICATE (HDP) - 26 WEEKS",
-        "- Crimes Investigations and Detections Intelligence",
-        "SPECIAL DIPLOMA (SDIP) - 24 WEEKS",
-        "- National Security and Intelligence",
-        "DIPLOMA CERTIFICATES (DIP) - 12 WEEKS",
-        "- Place of Worship Security and Defence Intelligence",
-        "- Institutes and Schools Security and Defence Intelligence",
-        "- Criminology and Penology",
-        "HIGHER DIPLOMA CERTIFICATE (HDP) - 26 WEEKS",
-        "- Unarmed Counter Terrorism Intelligence",
-        "- Criminology",
+        "SECURITY AND PEACE MANAGEMENTS",
+        "SECURITY AND CRIMES PREVENTION",
+        "VIP SECURITY AND DEFENSE INTELLIGENCE",
+        "HUMAN SECURITY AND FACULTIES PROTECTIONS INTELLIGENCE",
+        "(To qualify anyone as International FPO, PPA with international ID CARDS)",
+        "HIGHER DIPLOMA CERTIFICATE (HDP)",
+        "CRIMES INVESTIGATIONS AND DETECTIONS INTELLIGENCE",
+        "SPECIAL DIPLOMA (SDIP)",
+        "NATIONAL SECURITY AND INTELLIGENCE",
+        "PLACE OF WORSHIP SECURITY AND DEFENCE INTELLIGENCE",
+        "INSTITUTES AND SCHOOLS SECURITY AND DEFENCE INTELLIGENCE",
+        "CRIMINOLOGY AND PENOLOGY",
+        "UNARMED COUNTER TERRORISM INTELLIGENCE",
+        "CRIMINOLOGY",
       ],
     },
   ];
@@ -68,15 +63,22 @@ const CourseOfferings = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {courses.map((category, index) => (
-            <div key={index} className="bg-white p-6 rounded-lg shadow-lg">
-              <h3 className="text-xl font-semibold text-gray-900 mb-4">
+            <div
+              key={index}
+              className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300"
+            >
+              <h3 className="text-xl font-semibold text-gray-900 mb-4 border-b pb-2">
                 {category.title}
               </h3>
-              <ul className="space-y-2">
-                {category.items.map((item) => (
-                  <li className="flex items-start">
-                    <span className="text-blue-500 mr-2 mt-1">•</span>
-                    <span>{item}</span>
+              <ul className="space-y-3">
+                {category.items.map((item, itemIndex) => (
+                  <li key={itemIndex} className="flex items-start group">
+                    <span className="text-blue-500 mr-2 mt-1 transform group-hover:scale-110 transition-transform duration-200">
+                      •
+                    </span>
+                    <span className="text-gray-700 group-hover:text-gray-900 transition-colors duration-200">
+                      {item}
+                    </span>
                   </li>
                 ))}
               </ul>
@@ -86,7 +88,11 @@ const CourseOfferings = () => {
 
         <div className="mt-12 text-center">
           <Link href="/enroll">
-            <button className="bg-[#012E6B] text-white px-8 py-3 rounded-full text-lg font-semibold hover:bg-[#283a53] transition duration-300 transform hover:scale-105">
+            <button
+              className="bg-[#012E6B] text-white px-8 py-3 rounded-full text-lg font-semibold 
+              hover:bg-[#283a53] transition duration-300 transform hover:scale-105 
+              shadow-lg hover:shadow-xl"
+            >
               Enroll Now
             </button>
           </Link>

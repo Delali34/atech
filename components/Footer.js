@@ -15,7 +15,7 @@ const Footer = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           <div className="space-y-4">
-            <h3 className="text-2xl font-bold">Our Company</h3>
+            <h3 className="text-xl font-bold">Ambassador Technology</h3>
             <p className="text-gray-300">
               Providing top-notch security training and consultancy services to
               empower individuals and organizations.
@@ -23,7 +23,7 @@ const Footer = () => {
           </div>
 
           <div className="space-y-4">
-            <h3 className="text-2xl font-bold">Locations</h3>
+            <h3 className="text-xl font-bold">Locations</h3>
             <ul className="space-y-2">
               <li className="flex items-start">
                 <FaMapMarkerAlt className="mt-1 mr-2 text-orange-400" />
@@ -40,7 +40,7 @@ const Footer = () => {
           </div>
 
           <div className="space-y-4">
-            <h3 className="text-2xl font-bold">Contact Us</h3>
+            <h3 className="text-xl font-bold">Contact Us</h3>
             <ul className="space-y-2">
               <li className="flex items-center">
                 <FaPhone className="mr-2 text-orange-400" />
@@ -48,13 +48,13 @@ const Footer = () => {
               </li>
               <li className="flex items-center">
                 <FaEnvelope className="mr-2 text-orange-400" />
-                <span>info@ourcompany.com</span>
+                <span>Ambassadortechnology@gmail.com</span>
               </li>
             </ul>
           </div>
 
           <div className="space-y-4">
-            <h3 className="text-2xl font-bold">Follow Us</h3>
+            <h3 className="text-xl font-bold">Follow Us</h3>
             <div className="flex space-x-4">
               <a
                 href="#"

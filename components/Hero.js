@@ -56,7 +56,7 @@ const HeroSection = () => {
         <motion.div className="md:w-1/2">
           <motion.div className="relative w-full h-96">
             <Image
-              src="/image1.jpg"
+              src="/image-3.jpeg"
               alt="Advanced electronic security system"
               layout="fill"
               objectFit="cover"

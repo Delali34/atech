@@ -1,5 +1,6 @@
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
+import { PaystackButton } from "react-paystack";
 import React, { useState } from "react";
 
 const EnrollmentForm = () => {
@@ -20,27 +21,27 @@ const EnrollmentForm = () => {
 
   // Course pricing (in GHS)
   const coursePricing = {
-    "Professional Basic Certificate (2 Weeks)": {
+    "Professional Basic Certificate": {
       local: 1500,
       international: 2500,
     },
-    "Professional Advanced Certificate (3 Weeks)": {
+    "Professional Advanced Certificate": {
       local: 2000,
       international: 3000,
     },
-    "Diploma Certificate (8 Weeks)": {
+    "Diploma Certificate": {
       local: 3500,
       international: 5000,
     },
-    "Higher Diploma Certificate (26 Weeks)": {
+    "Higher Diploma Certificate": {
       local: 5000,
       international: 7500,
     },
-    "Special Diploma (24 Weeks)": {
+    "Special Diploma": {
       local: 4500,
       international: 7000,
     },
-    "Diploma Certificate (12 Weeks)": {
+    "Diploma Certificate": {
       local: 4000,
       international: 6000,
     },
@@ -51,23 +52,23 @@ const EnrollmentForm = () => {
   };
 
   const courses = {
-    "Professional Basic Certificate (2 Weeks)": [
+    "Professional Basic Certificate": [
       "Security and Peace Management",
       "Security and Crimes Prevention Intelligence",
     ],
-    "Professional Advanced Certificate (3 Weeks)": [
+    "Professional Advanced Certificate": [
       "VIP Security and Defense Intelligence",
     ],
-    "Diploma Certificate (8 Weeks)": [
+    "Diploma Certificate": [
       "Human Security and Faculties Protection Intelligence",
     ],
-    "Higher Diploma Certificate (26 Weeks)": [
+    "Higher Diploma Certificate": [
       "Crimes Investigations and Detections Intelligence",
       "Unarmed Counter Terrorism Intelligence",
       "Criminology",
     ],
-    "Special Diploma (24 Weeks)": ["National Security and Intelligence"],
-    "Diploma Certificate (12 Weeks)": [
+    "Special Diploma": ["National Security and Intelligence"],
+    "Diploma Certificate": [
       "Place of Worship Security and Defence Intelligence",
       "Institutes and Schools Security and Defence Intelligence",
       "Criminology and Penology",
@@ -102,14 +103,12 @@ const EnrollmentForm = () => {
   const validateForm = () => {
     const newErrors = {};
 
-    // Name validation
     if (!formData.fullName.trim()) {
       newErrors.fullName = "Full name is required";
     } else if (formData.fullName.trim().length < 3) {
       newErrors.fullName = "Name must be at least 3 characters long";
     }
 
-    // Email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!formData.email.trim()) {
       newErrors.email = "Email is required";
@@ -117,7 +116,6 @@ const EnrollmentForm = () => {
       newErrors.email = "Please enter a valid email address";
     }
 
-    // Phone validation
     const phoneRegex = /^\+?[\d\s-]{8,}$/;
     if (!formData.phone.trim()) {
       newErrors.phone = "Phone number is required";
@@ -125,12 +123,10 @@ const EnrollmentForm = () => {
       newErrors.phone = "Please enter a valid phone number";
     }
 
-    // Country validation
     if (!formData.country) {
       newErrors.country = "Please select your country";
     }
 
-    // Course validations
     if (!formData.courseType) {
       newErrors.courseType = "Please select a course type";
     }
@@ -147,7 +143,6 @@ const EnrollmentForm = () => {
       ...prev,
       [name]: value,
     }));
-    // Clear error when user starts typing
     if (errors[name]) {
       setErrors((prev) => ({
         ...prev,
@@ -168,37 +163,34 @@ const EnrollmentForm = () => {
     }
   };
 
-  const handleConfirmPayment = () => {
-    setIsLoading(true);
-    const config = {
-      reference: new Date().getTime().toString(),
-      email: formData.email,
-      amount: getCurrentPrice() * 100,
-      publicKey: "pk_test_eee4d6a764eff8dd7ad9ab7ea1d92e02dc3dfb73",
-      metadata: {
-        custom_fields: [
-          {
-            display_name: "Course Type",
-            variable_name: "course_type",
-            value: formData.courseType,
-          },
-        ],
-      },
-    };
+  const config = {
+    reference: new Date().getTime().toString(),
+    email: formData.email,
+    amount: getCurrentPrice() * 100,
+    currency: "GHS",
+    publicKey: "pk_test_0edda270529c6a7b50ef15242ef7c4d46bb17909",
+    metadata: {
+      custom_fields: [
+        {
+          display_name: "Course Type",
+          variable_name: "course_type",
+          value: formData.courseType,
+        },
+      ],
+    },
+  };
 
-    window.PaystackPop.setup({
-      ...config,
-      onSuccess: (reference) => {
-        console.log("Payment successful!", reference);
-        setIsLoading(false);
-        // Handle successful payment
-      },
-      onClose: () => {
-        console.log("Payment closed");
-        setIsLoading(false);
-        setShowConfirmation(false);
-      },
-    }).openIframe();
+  const handlePaystackSuccessAction = (reference) => {
+    console.log("Payment successful!", reference);
+    setIsLoading(false);
+    setShowConfirmation(false);
+    // Handle successful payment - you can add your success logic here
+  };
+
+  const handlePaystackCloseAction = () => {
+    console.log("Payment closed");
+    setIsLoading(false);
+    setShowConfirmation(false);
   };
 
   return (
@@ -238,38 +230,13 @@ const EnrollmentForm = () => {
                 >
                   Back
                 </button>
-                <button
-                  onClick={handleConfirmPayment}
-                  disabled={isLoading}
-                  className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  {isLoading ? (
-                    <span className="flex items-center justify-center">
-                      <svg
-                        className="animate-spin h-5 w-5 mr-3"
-                        viewBox="0 0 24 24"
-                      >
-                        <circle
-                          className="opacity-25"
-                          cx="12"
-                          cy="12"
-                          r="10"
-                          stroke="currentColor"
-                          strokeWidth="4"
-                          fill="none"
-                        />
-                        <path
-                          className="opacity-75"
-                          fill="currentColor"
-                          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                        />
-                      </svg>
-                      Processing...
-                    </span>
-                  ) : (
-                    "Proceed to Payment"
-                  )}
-                </button>
+                <PaystackButton
+                  {...config}
+                  text="Proceed to Payment"
+                  onSuccess={handlePaystackSuccessAction}
+                  onClose={handlePaystackCloseAction}
+                  className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                />
               </div>
             </div>
           </div>
@@ -585,32 +552,7 @@ const EnrollmentForm = () => {
                 disabled={isLoading}
                 className="w-full bg-blue-600 text-white py-3 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                {isLoading ? (
-                  <span className="flex items-center justify-center">
-                    <svg
-                      className="animate-spin h-5 w-5 mr-3"
-                      viewBox="0 0 24 24"
-                    >
-                      <circle
-                        className="opacity-25"
-                        cx="12"
-                        cy="12"
-                        r="10"
-                        stroke="currentColor"
-                        strokeWidth="4"
-                        fill="none"
-                      />
-                      <path
-                        className="opacity-75"
-                        fill="currentColor"
-                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                      />
-                    </svg>
-                    Processing...
-                  </span>
-                ) : (
-                  "Continue to Payment"
-                )}
+                Continue to Payment
               </button>
             </form>
           </div>
