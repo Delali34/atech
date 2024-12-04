@@ -50,8 +50,8 @@ const EnrollmentForm = () => {
       international: 7500,
     },
     "Special Diploma": {
-      local: 4500,
-      international: 7000,
+      local: 1,
+      international: 1,
     },
     "Diploma Certificate": {
       local: 4000,
