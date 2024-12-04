@@ -2,6 +2,7 @@ import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import React, { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
+import router from "next/router";
 
 // Dynamically import PaystackButton with ssr disabled
 const PaystackButton = dynamic(
@@ -174,30 +175,68 @@ const EnrollmentForm = () => {
     }
   };
 
-  const getPaystackConfig = () => ({
-    reference: new Date().getTime().toString(),
-    email: formData.email,
-    amount: getCurrentPrice() * 100,
-    currency: "GHS",
-    publicKey: "pk_test_0edda270529c6a7b50ef15242ef7c4d46bb17909",
-    metadata: {
-      custom_fields: [
-        {
-          display_name: "Course Type",
-          variable_name: "course_type",
-          value: formData.courseType,
-        },
-      ],
-    },
-  });
-
-  const handlePaystackSuccessAction = (reference) => {
-    console.log("Payment successful!", reference);
-    setIsLoading(false);
-    setShowConfirmation(false);
-    // Handle successful payment - you can add your success logic here
+  // Update the getPaystackConfig function
+  const getPaystackConfig = () => {
+    const reference = `PAY-${Date.now()}-${Math.floor(
+      Math.random() * 1000000
+    )}`;
+    return {
+      reference,
+      email: formData.email,
+      amount: getCurrentPrice() * 100,
+      currency: "GHS",
+      publicKey: process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY,
+      metadata: {
+        custom_fields: [
+          {
+            display_name: "Course Type",
+            variable_name: "course_type",
+            value: formData.courseType,
+          },
+          {
+            display_name: "Full Name",
+            variable_name: "full_name",
+            value: formData.fullName,
+          },
+        ],
+      },
+    };
   };
 
+  const handlePaystackSuccessAction = async (response) => {
+    setIsLoading(true);
+    try {
+      const enrollmentResponse = await fetch("/api/enrollments/create", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          ...formData,
+          amount: getCurrentPrice(),
+          paymentRef: response.reference,
+          paymentStatus: "completed",
+        }),
+      });
+
+      const data = await enrollmentResponse.json();
+
+      if (!enrollmentResponse.ok || !data.success) {
+        throw new Error(data.message || "Failed to save enrollment details");
+      }
+
+      // Redirect to success page
+      router.push(`/success?reference=${response.reference}`);
+    } catch (error) {
+      console.error("Error saving enrollment:", error);
+      alert(
+        error.message ||
+          "There was an error processing your enrollment. Please try again."
+      );
+    } finally {
+      setIsLoading(false);
+    }
+  };
   const handlePaystackCloseAction = () => {
     console.log("Payment closed");
     setIsLoading(false);

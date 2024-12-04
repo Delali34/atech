@@ -1,0 +1,24 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = "postgresql://neondb_owner:m7WxaQ3ijAcL@ep-dry-term-a5krf660.us-east-2.aws.neon.tech/neondb?sslmode=require"
+}
+
+model Enrollment {
+  id              String   @id @default(cuid())
+  fullName        String
+  email           String
+  phone           String
+  country         String
+  courseType      String
+  specificCourse  String
+  studentType     String
+  amount          Float
+  paymentStatus   String   @default("pending") // pending, completed, failed
+  paymentRef      String?  // Paystack reference
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}

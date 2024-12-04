@@ -51,6 +51,48 @@ const GalleryPage = () => {
       category: "",
       description: "",
     },
+    {
+      id: 14,
+      src: "/img (1).jpeg",
+      title: "Ambassador Technology",
+      category: "",
+      description: "",
+    },
+    {
+      id: 13,
+      src: "/img (2).jpeg",
+      title: "Ambassador Technology",
+      category: "",
+      description: "",
+    },
+    {
+      id: 9,
+      src: "/img (3).jpeg",
+      title: "Ambassador Technology",
+      category: "",
+      description: "",
+    },
+    {
+      id: 12,
+      src: "/img (4).jpeg",
+      title: "Ambassador Technology",
+      category: "",
+      description: "",
+    },
+    {
+      id: 11,
+      src: "/img (5).jpeg",
+      title: "Ambassador Technology",
+      category: "",
+      description: "",
+    },
+    {
+      id: 10,
+      src: "/img (6).jpeg",
+      title: "Ambassador Technology",
+      category: "",
+      description: "",
+    },
   ];
 
   // Image Modal Component
