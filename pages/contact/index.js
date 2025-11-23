@@ -81,7 +81,7 @@ const ContactPage = () => {
                 </div>
                 <div>
                   <h3 className="text-lg font-medium text-gray-900">Phone</h3>
-                  <p className="mt-2 text-gray-600">0248363622 / 0502133692</p>
+                  <p className="mt-2 text-gray-600">0248363266 / 0502133692</p>
                 </div>
               </div>
 
